@@ -6,12 +6,12 @@ import org.bukkit.entity.Player;
 
 import lombok.AllArgsConstructor;
 import me.acablade.command.subcmd.ClaimSubCommand;
+import me.acablade.container.ClaimContainer;
 import me.acablade.manager.ClaimManager;
-import me.acablade.objects.Claim;
 import me.acablade.utils.ChunkUtils;
 
 @AllArgsConstructor
-public class ClaimAreaSubCommand implements ClaimSubCommand {
+public class InventorySubCommand implements ClaimSubCommand{
 
     private ClaimManager claimManager;
 
@@ -19,16 +19,17 @@ public class ClaimAreaSubCommand implements ClaimSubCommand {
     public void run(CommandSender sender, String[] args) {
         // TODO Auto-generated method stub
         Player player = (Player) sender;
-
         Chunk chunk = player.getLocation().getChunk();
-        if(claimManager.contains(ChunkUtils.getChunkId(chunk.getX(), chunk.getZ()))){
-            failMessage(player, "Bu chunk zaten claimli!");
+        long id = ChunkUtils.getChunkId(chunk.getX(), chunk.getZ());
+        if(!claimManager.contains(id)){
+            failMessage(player, "Claim içerisinde değilsin!");
             return;
         }
 
-        claimManager.add(new Claim(player.getUniqueId(), chunk.getX(), chunk.getZ()));
-        successMessage(player, "Başarıyla claimledin");
+        ClaimContainer container = new ClaimContainer(claimManager.get(id));
 
+        player.openInventory(container.getInventory());
+        
     }
 
     @Override
@@ -48,7 +49,5 @@ public class ClaimAreaSubCommand implements ClaimSubCommand {
         // TODO Auto-generated method stub
         return false;
     }
-
-
     
 }

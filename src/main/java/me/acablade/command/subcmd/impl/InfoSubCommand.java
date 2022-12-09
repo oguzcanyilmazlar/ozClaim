@@ -1,5 +1,10 @@
 package me.acablade.command.subcmd.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -8,26 +13,34 @@ import lombok.AllArgsConstructor;
 import me.acablade.command.subcmd.ClaimSubCommand;
 import me.acablade.manager.ClaimManager;
 import me.acablade.objects.Claim;
+import me.acablade.utils.ChatUtils;
 import me.acablade.utils.ChunkUtils;
 
 @AllArgsConstructor
-public class ClaimAreaSubCommand implements ClaimSubCommand {
+public class InfoSubCommand implements ClaimSubCommand{
 
     private ClaimManager claimManager;
+
 
     @Override
     public void run(CommandSender sender, String[] args) {
         // TODO Auto-generated method stub
         Player player = (Player) sender;
-
         Chunk chunk = player.getLocation().getChunk();
-        if(claimManager.contains(ChunkUtils.getChunkId(chunk.getX(), chunk.getZ()))){
-            failMessage(player, "Bu chunk zaten claimli!");
+        long id = ChunkUtils.getChunkId(chunk.getX(), chunk.getZ());
+        if(!claimManager.contains(id)){
+            failMessage(player, "Chunk içerisinde değilsin!");
             return;
         }
 
-        claimManager.add(new Claim(player.getUniqueId(), chunk.getX(), chunk.getZ()));
-        successMessage(player, "Başarıyla claimledin");
+        Claim claim = claimManager.get(id);
+
+        long millis = claim.getTotalPower();
+
+        sendMessage(player, "&eBitiş tarihi:");
+        sendMessage(player, "   &a" + ChatUtils.makeReadable(millis));
+        sendMessage(player, "&eSahibi:");
+        successMessage(player, "   " + Bukkit.getPlayer(claim.getOwner()).getName());
 
     }
 
@@ -48,7 +61,5 @@ public class ClaimAreaSubCommand implements ClaimSubCommand {
         // TODO Auto-generated method stub
         return false;
     }
-
-
     
 }

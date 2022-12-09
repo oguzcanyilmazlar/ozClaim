@@ -12,7 +12,8 @@ public class ItemUtils {
     private static Map<Material, Long> map = new HashMap<>();
 
     public static void init(ConfigurationSection section){
-        throw new NotImplementedException("Configden okumayı ayarla");
+        map.put(Material.COBBLESTONE, 5000L);
+        //throw new NotImplementedException("Configden okumayı ayarla");
     }
 
     public static long getTimeForType(Material material){

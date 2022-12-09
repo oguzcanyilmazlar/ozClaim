@@ -12,6 +12,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import me.acablade.command.subcmd.ClaimSubCommand;
 import me.acablade.command.subcmd.impl.ClaimAreaSubCommand;
 import me.acablade.command.subcmd.impl.HelpSubCommand;
+import me.acablade.command.subcmd.impl.InfoSubCommand;
+import me.acablade.command.subcmd.impl.InventorySubCommand;
 import me.acablade.manager.ClaimManager;
 
 import static me.acablade.utils.ChatUtils.sendMessage;
@@ -24,6 +26,8 @@ public class ClaimCommand implements CommandExecutor{
     public ClaimCommand(ClaimManager claimManager){
         subCommandMap.put("help", new HelpSubCommand());
         subCommandMap.put("claim", new ClaimAreaSubCommand(claimManager));
+        subCommandMap.put("inventory", new InventorySubCommand(claimManager));
+        subCommandMap.put("info", new InfoSubCommand(claimManager));
     }
 
     @Override
@@ -38,7 +42,9 @@ public class ClaimCommand implements CommandExecutor{
 
         ClaimSubCommand subCommand = subCommandMap.get(subCommandName);
 
-        String[] newArgs = Arrays.copyOfRange(args, 1, args.length-1);
+        String[] newArgs = new String[0];
+        if(args.length > 1)
+            newArgs = Arrays.copyOfRange(args, 1, args.length-1);
 
         if(sender instanceof ConsoleCommandSender && !subCommand.canConsoleRun()){
             sendMessage(sender, "&cBu komutu konsol çalıştıramaz!");

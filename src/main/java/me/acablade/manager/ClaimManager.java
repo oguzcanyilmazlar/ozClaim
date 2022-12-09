@@ -33,7 +33,10 @@ public class ClaimManager implements Runnable{
 
     @Override
     public void run() {
-        claimMap.entrySet().removeIf(claim -> claim.getValue().refresh());
+        claimMap.entrySet().removeIf(claim -> {
+            claim.getValue().tick();
+            return claim.getValue().shouldRemove();
+        });
     }
 
     
