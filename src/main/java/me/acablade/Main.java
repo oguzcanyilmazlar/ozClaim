@@ -1,8 +1,9 @@
 package me.acablade;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.acablade.command.ClaimCommand;
+import me.acablade.listener.ClaimListener;
 import me.acablade.manager.ClaimManager;
 import me.acablade.utils.ItemUtils;
 
@@ -16,7 +17,11 @@ public class Main extends JavaPlugin {
 
 		this.claimManager = new ClaimManager();
 
-		Bukkit.getScheduler().runTaskTimerAsynchronously(this, claimManager, 0, 5);
+		getServer().getScheduler().runTaskTimerAsynchronously(this, claimManager, 0, 5);
+
+		getServer().getPluginManager().registerEvents(new ClaimListener(claimManager), this);
+
+		getCommand("claim").setExecutor(new ClaimCommand(claimManager));
 
 		ItemUtils.init(null);
     }

@@ -1,4 +1,6 @@
 name: ozclaim
 version: 1.0-SNAPSHOT
-author: CoderDojo Ninja
+author: Acablade
 main: me.acablade.Main
+commands:
+  claim:
