@@ -1,9 +1,5 @@
 package me.acablade.command.subcmd.impl;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.command.CommandSender;
@@ -37,7 +33,7 @@ public class InfoSubCommand implements ClaimSubCommand{
 
         long millis = claim.getTotalPower();
 
-        sendMessage(player, "&eBitiş tarihi:");
+        sendMessage(player, "&eBitiş süresi:");
         sendMessage(player, "   &a" + ChatUtils.makeReadable(millis));
         sendMessage(player, "&eSahibi:");
         successMessage(player, "   " + Bukkit.getPlayer(claim.getOwner()).getName());

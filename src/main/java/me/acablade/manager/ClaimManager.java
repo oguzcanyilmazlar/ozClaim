@@ -10,6 +10,8 @@ public class ClaimManager implements Runnable{
 
     private Map<Long, Claim> claimMap = new HashMap<>();
 
+    public static final long PERIOD = 60;
+
     public void add(Claim claim){
         this.claimMap.put(claim.getId(), claim);
     }

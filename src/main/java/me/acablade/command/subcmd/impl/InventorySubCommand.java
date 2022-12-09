@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 
 import lombok.AllArgsConstructor;
 import me.acablade.command.subcmd.ClaimSubCommand;
-import me.acablade.container.ClaimContainer;
 import me.acablade.manager.ClaimManager;
 import me.acablade.utils.ChunkUtils;
 
@@ -26,9 +25,7 @@ public class InventorySubCommand implements ClaimSubCommand{
             return;
         }
 
-        ClaimContainer container = new ClaimContainer(claimManager.get(id));
-
-        player.openInventory(container.getInventory());
+        player.openInventory(claimManager.get(id).getInventory());
         
     }
 

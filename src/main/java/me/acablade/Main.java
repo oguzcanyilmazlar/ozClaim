@@ -17,7 +17,7 @@ public class Main extends JavaPlugin {
 
 		this.claimManager = new ClaimManager();
 
-		getServer().getScheduler().runTaskTimerAsynchronously(this, claimManager, 0, 200);
+		getServer().getScheduler().runTaskTimerAsynchronously(this, claimManager, 0, 20 * ClaimManager.PERIOD);
 
 		getServer().getPluginManager().registerEvents(new ClaimListener(claimManager), this);
 
