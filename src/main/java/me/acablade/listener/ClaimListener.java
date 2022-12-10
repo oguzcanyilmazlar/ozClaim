@@ -56,6 +56,7 @@ public class ClaimListener implements Listener{
     @EventHandler
     private void onInteract(PlayerInteractEvent event){
         Block block = event.getClickedBlock();
+        if(block==null) return;
         Chunk chunk = block.getChunk();
         long id = ChunkUtils.getChunkId(chunk.getX(), chunk.getZ());
         if(!claimManager.contains(id)) return;
