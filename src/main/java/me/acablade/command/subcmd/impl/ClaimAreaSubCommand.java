@@ -49,6 +49,18 @@ public class ClaimAreaSubCommand implements ClaimSubCommand {
         return false;
     }
 
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return "claim";
+    }
+
+    @Override
+    public String getDescription() {
+        // TODO Auto-generated method stub
+        return "Alan claimlemeni sağlar";
+    }
+
 
     
 }

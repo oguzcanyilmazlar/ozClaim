@@ -12,6 +12,8 @@ public interface ClaimSubCommand {
     public String getPermission();
     public boolean canConsoleRun();
     public boolean needsPermission();
+    public String getName();
+    public String getDescription();
 
     default void sendMessage(CommandSender sender, String message){
         ChatUtils.sendMessage(sender, message);

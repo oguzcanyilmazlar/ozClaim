@@ -57,5 +57,17 @@ public class InfoSubCommand implements ClaimSubCommand{
         // TODO Auto-generated method stub
         return false;
     }
+
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return "info";
+    }
+
+    @Override
+    public String getDescription() {
+        // TODO Auto-generated method stub
+        return "Claim hakkında bilgi verir";
+    }
     
 }

@@ -46,5 +46,17 @@ public class InventorySubCommand implements ClaimSubCommand{
         // TODO Auto-generated method stub
         return false;
     }
+
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return "inventory";
+    }
+
+    @Override
+    public String getDescription() {
+        // TODO Auto-generated method stub
+        return "Claim envanterini gösterir";
+    }
     
 }

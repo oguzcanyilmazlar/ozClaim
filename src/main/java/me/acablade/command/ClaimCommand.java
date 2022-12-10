@@ -24,7 +24,7 @@ public class ClaimCommand implements CommandExecutor{
 
 
     public ClaimCommand(ClaimManager claimManager){
-        subCommandMap.put("help", new HelpSubCommand());
+        subCommandMap.put("help", new HelpSubCommand(subCommandMap));
         subCommandMap.put("claim", new ClaimAreaSubCommand(claimManager));
         subCommandMap.put("inventory", new InventorySubCommand(claimManager));
         subCommandMap.put("info", new InfoSubCommand(claimManager));
