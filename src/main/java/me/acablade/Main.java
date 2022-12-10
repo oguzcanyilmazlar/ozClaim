@@ -30,4 +30,9 @@ public class Main extends JavaPlugin {
 		ItemUtils.init(null);
     }
 
+	@Override
+	public void onDisable(){
+		claimManager.getAllClaims().forEach(database::updateClaim);
+	}
+
 }
