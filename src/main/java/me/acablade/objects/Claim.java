@@ -71,7 +71,8 @@ public class Claim implements InventoryHolder {
         setCurrentTime(currentTime+calculateTime());
         currentTime = currentTime - ClaimManager.PERIOD * 1000;
         if(shouldRemove()){
-            ChatUtils.broadcast("&c" +this.id + " adlı claimin süresi bitmiştir");
+            int[] coords = ChunkUtils.idToChunk(id);
+            ChatUtils.broadcast(String.format("&c%s adlı claimin süresi bitmiştir (x:%s, z:%s)", this.id, coords[0] * 16, coords[1] * 16));
         }
         
     }

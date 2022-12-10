@@ -7,9 +7,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
 
+import me.acablade.db.OzDatabase;
 import me.acablade.manager.ClaimManager;
 import me.acablade.objects.Claim;
 import me.acablade.utils.ChunkUtils;
@@ -17,9 +20,11 @@ import me.acablade.utils.ChunkUtils;
 public class ClaimListener implements Listener{
 
     private ClaimManager claimManager;
+    private OzDatabase database;
 
-    public ClaimListener(ClaimManager claimManager){
+    public ClaimListener(ClaimManager claimManager, OzDatabase database){
         this.claimManager = claimManager;
+        this.database = database;
     }
 
     @EventHandler
@@ -72,6 +77,21 @@ public class ClaimListener implements Listener{
         if(claim.getOwner().equals(event.getPlayer().getUniqueId())) return;
 
         event.setCancelled(true);
+    }
+
+    @EventHandler
+    private void onInventoryClose(InventoryCloseEvent event){
+
+        Inventory inventory = event.getInventory();
+
+        if(!(inventory.getHolder() instanceof Claim)) return;
+        Claim claim = (Claim) inventory.getHolder();
+
+        if(!event.getPlayer().getUniqueId().equals(claim.getOwner())) return;
+
+        database.updateClaim(claim);
+        
+
     }
 
     
